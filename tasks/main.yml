@@ -28,6 +28,12 @@
     src: "config/"
     dest: "{{ mail_config_dir }}"
 
+- name: Copy status script
+  template:
+    src: mail.sh.j2
+    dest: "{{ base_scripts_dir }}/mail.sh"
+    mode: 0755
+
 - name: Configure muttrc
   template:
     src: muttrc.j2
@@ -61,8 +67,15 @@
     - muttrc
     - offlineimaprc
 
-- name: Copy status script
-  template:
-    src: mail.sh.j2
-    dest: "{{ base_scripts_dir }}/mail.sh"
-    mode: 0755
+- name: Set up cron job syncing mail
+  cron:
+    name: Synchronize maildirs
+    job: /usr/bin/offlineimap -o -l /tmp/offlineimap.log 2> /dev/null
+    minute: */10
+    hour: *
+    day: *
+    weekday: *
+    month: *
+    user: "{{ base_user.name }}"
+    state: present
+    backup: yes
