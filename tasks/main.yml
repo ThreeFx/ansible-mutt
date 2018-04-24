@@ -1,0 +1,57 @@
+---
+- name: Fail if no accounts are specified
+  fail:
+    msg: Variable mail_accounts is empty
+  when: mail_accounts is not defined or mail_accounts == []
+
+- name: Install necessary programs
+  become: True
+  apt:
+    package: "{{ item }}"
+    state: present
+  with_items:
+    - mutt
+    - offlineimap
+
+- name: Create necessary dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ mail_base_dir }}"
+    - "{{ mail_config_dir }}"
+    - "{{ mail_password_dir }}"
+    - "{{ mail_maildir }}"
+
+- name: Copy static files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ mail_config_dir }}/{{ item | basename }}"
+  with_fileglob:
+    - "files/*"
+
+- name: Configure muttrc
+  template:
+    src: muttrc.j2
+    dest: "{{ mail_config_dir }}/muttrc"
+
+- name: Configure mail accounts
+  template:
+    src: acc.mutt.j2
+    dest: "{{ mail_config_dir }}/acc.{{ item.name }}.mutt"
+  with_items:
+    - "{{ mail_accounts }}"
+
+- name: Configure offlineimap
+  template:
+    src: offlineimaprc.j2
+    dest: "{{ mail_config_dir }}/offlineimaprc"
+
+- name: Create configuration symlinks
+  file:
+    src: "{{ mail_config_dir }}/{{ item }}"
+    dest: "{{ home_dir }}/.{{ item }}"
+    state: link
+  with_items:
+    - muttrc
+    - offlineimaprc

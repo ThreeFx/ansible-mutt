@@ -1,0 +1,5 @@
+set pgp_replysign
+set pgp_replyencrypt
+set pgp_replysignencrypted
+
+send-hook . 'set pgp_autosign; unset pgp_autoencrypt'
