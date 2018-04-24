@@ -9,7 +9,7 @@ set trash="{{ item.mutt.trash }}"
 set hostname="{{ item.hostname }}"
 set from="{{ item.from }}"
 set realname="{{ item.realname }}"
-set signature=$my_configdir/{{ item.name }}
+set signature=$my_configdir/sig_{{ item.name }}
 set sig_on_top=yes
 
 set smtp_url="smtps://{{ item.user }}@{{ item.server }}:{{ item.smtp_port | default(465) }}/"
