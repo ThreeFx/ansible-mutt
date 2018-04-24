@@ -42,6 +42,13 @@
   with_items:
     - "{{ mail_accounts }}"
 
+- name: Configure signatures
+  template:
+    src: signature.j2
+    dest: "{{ mail_config_dir }}/sig_{{ item.name }}.mutt"
+  with_items:
+    - "{{ mail_accounts }}"
+
 - name: Configure offlineimap
   template:
     src: offlineimaprc.j2
