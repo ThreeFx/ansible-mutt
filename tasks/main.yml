@@ -25,10 +25,8 @@
 
 - name: Copy static files
   copy:
-    src: "{{ item }}"
-    dest: "{{ mail_config_dir }}/{{ item | basename }}"
-  with_fileglob:
-    - "files/*"
+    src: "config/"
+    dest: "{{ mail_config_dir }}"
 
 - name: Configure muttrc
   template:
@@ -62,3 +60,9 @@
   with_items:
     - muttrc
     - offlineimaprc
+
+- name: Copy status script
+  template:
+    src: mail.sh.j2
+    dest: "{{ base_scripts_dir }}/mail.sh"
+    mode: 0755
