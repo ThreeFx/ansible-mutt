@@ -1,0 +1,5 @@
+{% if item.signature is defined %}
+{{ item.signature }}
+{% else %}
+{{ account.realname }} <{{ account.from }}>
+{% endif %}
