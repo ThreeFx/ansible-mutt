@@ -22,6 +22,7 @@
     - "{{ mail_config_dir }}"
     - "{{ mail_password_dir }}"
     - "{{ mail_maildir }}"
+    - "{{ mail_imap_dir }}"
 
 - name: Copy static files
   copy:
@@ -66,6 +67,12 @@
   with_items:
     - muttrc
     - offlineimaprc
+
+- name: Create offlineimap symlink
+  file:
+    src: "{{ mail_imap_dir }}"
+    dest: "{{ home_dir }}/.offlineimap"
+    state: link
 
 - name: Set up cron job syncing mail
   cron:
