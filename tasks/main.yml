@@ -67,6 +67,7 @@
   with_items:
     - muttrc
     - offlineimaprc
+    - mailcap
 
 - name: Create offlineimap symlink
   file:
