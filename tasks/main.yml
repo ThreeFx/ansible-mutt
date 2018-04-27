@@ -29,6 +29,12 @@
     src: "config/"
     dest: "{{ mail_config_dir }}"
 
+- name: Ensure 'aliases' file exists
+  copy:
+    content: "{{ mail_aliases | join('\n') }}"
+    dest: "{{ mail_config_dir }}/aliases"
+    mode: 0600
+
 - name: Copy status script
   template:
     src: mail.sh.j2

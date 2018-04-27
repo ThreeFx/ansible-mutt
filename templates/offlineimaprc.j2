@@ -31,7 +31,7 @@ nametrans = lambda folder: re.sub('{{ mail_local_inbox }}.{{ account.name }}', '
 
 [Repository {{ account.name }}.Remote]
 type = IMAP
-remotehost = {{ account.server }}
+remotehost = {{ account.imap_server }}
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 remoteuser = {{ account.user }}
@@ -40,5 +40,5 @@ folderfilter = lambda foldername: foldername in ['{{ account.imap.inbox }}', '{{
 createfolders = false
 nametrans = lambda folder: re.sub('{{ account.imap.inbox }}', '{{ mail_local_inbox }}.{{ account.name }}',
                            re.sub('{{ account.imap.drafts }}', '{{ mail_local_drafts }}.{{ account.name }}',
-                           re.sub('{{ account.imap.sent }}', '{{ mail_local_sent }}', folder)))
+                           re.sub('{{ account.imap.sent }}', '{{ mail_local_sent }}.{{ account.name }}', folder)))
 {% endfor %}

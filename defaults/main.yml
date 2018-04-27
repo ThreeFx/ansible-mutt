@@ -1,6 +1,7 @@
 ---
 mail_base_dir: "{{ home_dir }}/mail"
 mail_accounts: []
+mail_aliases: []
 
 mail_local_inbox: INBOX
 mail_local_drafts: Drafts
