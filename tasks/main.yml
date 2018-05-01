@@ -45,26 +45,26 @@
 
 - name: Configure muttrc
   template:
-    src: muttrc.j2
+    src: mutt/muttrc.j2
     dest: "{{ mail_config_dir }}/muttrc"
 
 - name: Configure mail accounts
   template:
-    src: acc.mutt.j2
+    src: mutt/acc.mutt.j2
     dest: "{{ mail_config_dir }}/acc.{{ item.name }}.mutt"
   with_items:
     - "{{ mail_accounts }}"
 
 - name: Configure signatures
   template:
-    src: signature.j2
+    src: mutt/signature.j2
     dest: "{{ mail_config_dir }}/sig_{{ item.name }}"
   with_items:
     - "{{ mail_accounts }}"
 
 - name: Configure offlineimap
   template:
-    src: offlineimaprc.j2
+    src: mutt/offlineimaprc.j2
     dest: "{{ mail_config_dir }}/offlineimaprc"
 
 - name: Create configuration symlinks
