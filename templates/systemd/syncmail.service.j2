@@ -1,0 +1,7 @@
+[Unit]
+Description=Synchronize mail dirs between IMAP accounts and this computer
+
+[Service]
+User={{ base_user.name }}
+ExecStart=/usr/bin/offlineimap -o -l /tmp/offlineimap.log
+Type=oneshot

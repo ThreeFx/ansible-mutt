@@ -83,15 +83,19 @@
     dest: "{{ home_dir }}/.offlineimap"
     state: link
 
-- name: Set up cron job syncing mail
-  cron:
-    name: Synchronize maildirs
-    job: "/usr/bin/offlineimap -o -l /tmp/offlineimap.log 2> /dev/null"
-    minute:  '*/10'
-    hour:    '*'
-    day:     '*'
-    weekday: '*'
-    month:   '*'
-    user: "{{ base_user.name }}"
-    state: present
-    backup: yes
+- name: Configure systemd service for syncing mail
+  template:
+    src: "systemd/{{ item }}.j2"
+    dest: "{{ home_dir }}/.config/systemd/user/{{ item }}"
+    mode: 0644
+  with_items:
+    - syncmail.service
+    - syncmail.timer
+
+- name: Install the timer
+  systemd:
+    user: yes
+    daemon_reload: yes
+    enabled: yes
+    name: syncmail.timer
+    state: started
