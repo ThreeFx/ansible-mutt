@@ -31,7 +31,7 @@ nametrans = lambda folder: re.sub('{{ mail_local_inbox }}.{{ account.name }}', '
 
 [Repository {{ account.name }}.Remote]
 type = IMAP
-remotehost = {{ account.imap_server }}
+remotehost = {{ account.imap.server }}
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 remoteuser = {{ account.user }}
