@@ -83,7 +83,6 @@ color header cyan color234 ^To:
 {% raw %}
 # string that will precede a message which has been included in a reply
 set attribution="%f, %{%Y-%m-%d %H:%M}:"
-#set attribution="\nSubject: %s\nDate: %{%Y-%m-%d %H:%M}\n"
 # quote email body when forwarding
 set forward_quote=yes
 # format for subject when forwarding
@@ -96,16 +95,13 @@ set index_format = "%4C  %Z  %{%Y-%m-%d %H:%M}  %-15.15L  %s"
 {% endraw %}
 
 # sidebar
- set sidebar_width=35
-#  set sidebar_delim='|'
-# set sidebar_folderindent=yes
-# set sidebar_shortpath=yes
-# set sidebar_sort=no
+set sidebar_width=35
 set sidebar_visible=yes
 bind pager,index > sidebar-next
 bind pager,index < sidebar-prev
 bind pager,index , sidebar-open
 set sidebar_format="%B%?F? [%F]?%* %?N?%N/?%?S?%S?"
+set mail_check_stats
 
 # b toggles sidebar visibility
 macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
