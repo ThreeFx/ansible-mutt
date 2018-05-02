@@ -1,9 +1,9 @@
 # Keep that up here to have the right record and so on
 source $my_configdir/acc.shared.mutt
 
-set record="{{ item.mutt.sent }}"
-set postponed="{{ item.mutt.draft }}"
-set trash="{{ item.mutt.trash }}"
+set record="{{ item.mutt_sent | default(mail_mutt_sent) }}"
+set postponed="{{ item.mutt_draft | default(mail_mutt_draft) }}.{{ item.name }}"
+set trash="{{ item.mutt_trash | default(mail_mutt_trash) }}"
 
 # cloak system name
 set hostname="{{ item.hostname }}"
