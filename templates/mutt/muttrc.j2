@@ -44,6 +44,11 @@ macro index <f{{ loop.index0 + 2 }}> '<enter-command>source $my_configdir/acc.{{
 # Order the visable header lines
 hdr_order User-Agent: Date: From: Subject: To: CC: BCC: Reply-To: Mail-Followup-To:  Organization: X-Mailer:
 
+# Which headers to show in the minimal view?
+unignore X-Mailer
+unignore X-Spam-Flag
+unignore X-Spam-Score
+
 # COMPOSING
 # Include the message in replies.
 set include
@@ -119,7 +124,8 @@ color sidebar_new yellow default
 
 color header green color234 ^(From:|Subject:)
 color header cyan color234 ^(To:|Cc:)
-color header red color234 ^X-Spam:
+color header red color234 ^X-Spam-Flag:\ *[Yy][Ee][Ss]
+color header green color234 ^X-Spam-Flag:\ *[Nn][Oo]
 color header yellow color234 ^Date:
 
 auto_view text/html
