@@ -78,8 +78,6 @@ set simple_search="~f %s | ~C %s | ~s %s"
 
 # Make headers editable
 set edit_headers=yes
-color header green color234 ^(From:|Subject:)
-color header cyan color234 ^To:
 {% raw %}
 # string that will precede a message which has been included in a reply
 set attribution="%f, %{%Y-%m-%d %H:%M}:"
@@ -119,13 +117,18 @@ source $my_configdir/crypt.mutt
 source $my_configdir/solarized-dark.mutt
 color sidebar_new yellow default
 
+color header green color234 ^(From:|Subject:)
+color header cyan color234 ^(To:|Cc:)
+color header red color234 ^X-Spam:
+color header yellow color234 ^Date:
+
 auto_view text/html
 
 # switch to default account on startup
 source $my_configdir/acc.{{ mail_accounts[0].name }}.mutt
 
 # Somhow a bug?
-color status {{ mail_accounts[1].fontcolor | default('white') }} {{ mail_accounts[0].color }}
+color status {{ mail_accounts[0].fontcolor | default('white') }} {{ mail_accounts[0].color }}
 
 #set mailcap_path=~/.mailcap
 set wait_key=no
