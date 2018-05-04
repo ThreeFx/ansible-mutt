@@ -1,5 +1,6 @@
-set pgp_replysign
-set pgp_replyencrypt
-set pgp_replysignencrypted
+set crypt_replysign
+set crypt_replyencrypt
+set crypt_replysignencrypted
+set crypt_opportunistic_encrypt
 
-send-hook . 'set pgp_autosign; unset pgp_autoencrypt'
+send-hook . 'set crypt_autosign; unset crypt_autoencrypt'
