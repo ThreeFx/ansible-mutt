@@ -70,7 +70,7 @@
 - name: Create configuration symlinks
   file:
     src: "{{ mail_config_dir }}/{{ item }}"
-    dest: "{{ home_dir }}/.{{ item }}"
+    dest: "{{ base_home_dir }}/.{{ item }}"
     state: link
   with_items:
     - muttrc
@@ -80,13 +80,13 @@
 - name: Create offlineimap symlink
   file:
     src: "{{ mail_imap_dir }}"
-    dest: "{{ home_dir }}/.offlineimap"
+    dest: "{{ base_home_dir }}/.offlineimap"
     state: link
 
 - name: Configure systemd service for syncing mail
   template:
     src: "systemd/{{ item }}.j2"
-    dest: "{{ home_dir }}/.config/systemd/user/{{ item }}"
+    dest: "{{ base_home_dir }}/.config/systemd/user/{{ item }}"
     mode: 0644
   with_items:
     - syncmail.service

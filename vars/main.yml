@@ -1,6 +1,4 @@
 ---
-home_dir: "/home/{{ base_user.name }}"
-
 mail_config_dir: "{{ mail_base_dir }}/config"
 mail_maildir: "{{ mail_base_dir }}/maildir"
 mail_password_dir: "{{ mail_base_dir }}/keys"

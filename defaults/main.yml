@@ -1,5 +1,5 @@
 ---
-mail_base_dir: "{{ home_dir }}/mail"
+mail_base_dir: "{{ base_home_dir }}/mail"
 mail_accounts: []
 mail_aliases: []
 
