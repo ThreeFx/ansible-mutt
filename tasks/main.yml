@@ -2,7 +2,7 @@
 - name: Fail if no accounts are specified
   fail:
     msg: Variable mail_accounts is empty
-  when: mail_accounts is not defined or mail_accounts == []
+  when: mail_accounts == []
 
 - name: Install necessary programs
   become: True
