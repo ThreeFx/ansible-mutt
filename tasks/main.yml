@@ -14,6 +14,7 @@
     - gpgsm
     - mutt
     - offlineimap
+    - urlscan
 
 - name: Create necessary dirs
   file:

@@ -23,6 +23,10 @@ mailboxes `find {{ mail_maildir }}/* -maxdepth 0 -type d -printf "+'%f' ";`
 # Switch between acounts
 macro index,pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
 
+# Viewing URLs in mails
+macro index,pager \cb "<pipe-message>urlscan<Enter>" "extract URLs of message"
+macro attach,compose \cb "<pipe-entry>urlscan<Enter>" "extract URLs of message"
+
 bind pager j next-line
 bind pager k previous-line
 bind pager J next-page
