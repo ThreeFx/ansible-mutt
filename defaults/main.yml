@@ -21,6 +21,12 @@ mail_accounts: []
 #      sent: Sent
 #    fontcolor: black
 #    color: white
+## signature is optional - if none is given 'Real Name' <from_address> is used
+#    signature: |-
+#        I Me <myaddress@mail.tld>
+#        The stuff I do
+#        The company I work for
+#        Where to find them
 mail_aliases: []
 
 mail_mutt_sent: +Sent
