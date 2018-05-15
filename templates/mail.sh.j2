@@ -1,9 +1,9 @@
 #!/bin/bash
 
 if [[ $1 == "new" ]]; then
-    mails=`find {{ mail_maildir }}/*/new/ -type f | grep -v Trash | wc -l`
+    mails=`find {{ mail_maildir }}/INBOX.*/new/ -type f | grep -v Trash | wc -l`
 elif [[ $1 == "unread" ]]; then
-    mails=`find {{ mail_maildir }}/*/cur/ -type f | grep '.*,$' | grep -v Trash | wc -l`
+    mails=`find {{ mail_maildir }}/INBOX.*/cur/ -type f | grep '.*,$' | grep -v Trash | wc -l`
 else
     echo "Parameter unknown: $1"
     echo "Usage: mail.sh [new | unread]"
