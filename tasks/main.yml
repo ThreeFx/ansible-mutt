@@ -32,6 +32,13 @@
     src: "config/"
     dest: "{{ mail_config_dir }}"
 
+- name: Disable html auto-rendering in mutt (see https://efail.de)
+  become: True
+  replace:
+    path: /etc/mailcap
+    regexp: ^(text/html;.*copiousoutput;.*)$
+    replace: '#\1'
+
 - name: Ensure 'aliases' file exists
   copy:
     content: "{{ mail_aliases | join('\n') }}"
