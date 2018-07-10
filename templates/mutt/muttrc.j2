@@ -34,6 +34,8 @@ bind pager K previous-page
 bind pager g top
 bind pager G bottom
 
+bind pager,index R group-reply
+
 bind attach,index g first-entry
 bind attach,index G last-entry
 
@@ -52,6 +54,10 @@ hdr_order User-Agent: Date: From: Subject: To: CC: BCC: Reply-To: Mail-Followup-
 unignore X-Mailer
 unignore X-Spam-Flag
 unignore X-Spam-Score
+unignore X-SPAM-LEVEL
+
+set abort_noattach = ask-yes
+set attach_keyword = "anhang"
 
 # COMPOSING
 # Include the message in replies.
