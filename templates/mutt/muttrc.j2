@@ -139,6 +139,7 @@ color header green color234 ^X-Spam-Flag:\ *[Nn][Oo]
 color header yellow color234 ^Date:
 
 auto_view text/html
+alternative_order text/plain text/enriched text/html
 
 # switch to default account on startup
 source $my_configdir/acc.{{ mail_accounts[0].name }}.mutt
