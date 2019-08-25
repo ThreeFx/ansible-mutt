@@ -14,8 +14,6 @@ pythonfile = {{ mail_config_dir }}/offlineimap.py
 [Account {{ account.name }}]
 localrepository = {{ account.name }}.Local
 remoterepository = {{ account.name }}.Remote
-# Status cache. Default is plain, which eventually becomes huge and slow.
-status_backend = sqlite
 # Minutes between syncs
 autorefresh = 5
 # Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
