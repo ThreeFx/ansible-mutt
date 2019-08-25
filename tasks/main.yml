@@ -6,15 +6,12 @@
 
 - name: Install necessary programs
   become: True
-  apt:
-    package: "{{ item }}"
+  package:
+    name: "{{ item }}"
     state: present
   with_items:
-    # Install gpgsm to shut up mutt's error "CMS protocol not supported"
-    - gpgsm
     - mutt
     - offlineimap
-    - urlscan
 
 - name: Create necessary dirs
   file:
@@ -38,11 +35,11 @@
     dest: "{{ mail_config_dir }}/aliases"
     mode: 0600
 
-- name: Copy status script
-  template:
-    src: mail.sh.j2
-    dest: "{{ base_scripts_dir }}/mail.sh"
-    mode: 0755
+#- name: Copy status script
+#  template:
+#    src: mail.sh.j2
+#    dest: "{{ base_scripts_dir }}/mail.sh"
+#    mode: 0755
 
 - name: Configure muttrc
   template:
@@ -76,7 +73,6 @@
   with_items:
     - muttrc
     - offlineimaprc
-    - mailcap
 
 - name: Create offlineimap symlink
   file:
