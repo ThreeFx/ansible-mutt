@@ -10,7 +10,6 @@ set hostname="{{ item.hostname }}"
 set from="{{ item.from }}"
 set realname="{{ item.realname }}"
 set signature=$my_configdir/sig_{{ item.name }}
-set sig_on_top=yes
 
 set smtp_url="smtp{% if item.smtp.port == 465 %}s{% endif %}://{{ item.user }}@{{ item.smtp.server }}:{{ item.smtp.port | default(465) }}"
 # always use SSL when connecting to a server
