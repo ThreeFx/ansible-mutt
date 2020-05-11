@@ -95,6 +95,6 @@ auto_view text/html
 alternative_order text/plain text/enriched text/html
 
 # switch to default account on startup
-source $my_cfgdir/account.{{ mutt_accounts[0].name }}
+push "<change-folder>={{ mutt_accounts[0].name }}/<enter>"
 
 set wait_key = no
