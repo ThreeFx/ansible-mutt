@@ -1,6 +1,0 @@
-set crypt_replysign
-set crypt_replyencrypt
-set crypt_replysignencrypted
-set crypt_opportunistic_encrypt
-
-send-hook . 'set crypt_autosign; unset crypt_autoencrypt'

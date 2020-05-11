@@ -1,8 +1,8 @@
 ---
 - name: Fail if no accounts are specified
   fail:
-    msg: Variable mail_accounts is empty
-  when: mail_accounts == []
+    msg: Variable mutt_accounts is empty
+  when: mutt_accounts == []
 
 - name: Install necessary programs
   become: True
@@ -10,89 +10,39 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - mutt
-    - offlineimap
+    - neomutt
+    - isync
 
 - name: Create necessary dirs
   file:
     path: "{{ item }}"
     state: directory
   with_items:
-    - "{{ mail_base_dir }}"
-    - "{{ mail_config_dir }}"
-    - "{{ mail_password_dir }}"
-    - "{{ mail_maildir }}"
-    - "{{ mail_imap_dir }}"
+    - ~/.config/neomutt
+    - ~/.mail
 
-- name: Copy static files
-  copy:
-    src: "config/"
-    dest: "{{ mail_config_dir }}"
-
-- name: Ensure 'aliases' file exists
-  copy:
-    content: "{{ mail_aliases | join('\n') }}"
-    dest: "{{ mail_config_dir }}/aliases"
-    mode: 0600
-
-- name: Copy status script
+- name: Configure neomutt
   template:
-    src: mail.sh.j2
-    dest: "{{ base_scripts_dir }}/mail.sh"
-    mode: 0755
-
-- name: Configure muttrc
-  template:
-    src: mutt/muttrc.j2
-    dest: "{{ mail_config_dir }}/muttrc"
-
-- name: Configure mail accounts
-  template:
-    src: mutt/acc.mutt.j2
-    dest: "{{ mail_config_dir }}/acc.{{ item.name }}.mutt"
+    src: "{{ item }}.j2"
+    dest: "~/.config/neomutt/{{ item }}"
   with_items:
-    - "{{ mail_accounts }}"
+    - neomuttrc
 
-- name: Configure signatures
+- name: Configure mail accounts for neomutt
   template:
-    src: mutt/signature.j2
-    dest: "{{ mail_config_dir }}/sig_{{ item.name }}"
+    src: account.j2
+    dest: "~/.config/neomutt/account.{{ item.name }}"
   with_items:
-    - "{{ mail_accounts }}"
+    - "{{ mutt_accounts }}"
 
-- name: Configure offlineimap
+- name: Configure signatures for neomutt
   template:
-    src: mutt/offlineimaprc.j2
-    dest: "{{ mail_config_dir }}/offlineimaprc"
-
-- name: Create configuration symlinks
-  file:
-    src: "{{ mail_config_dir }}/{{ item }}"
-    dest: "{{ base_home_dir }}/.{{ item }}"
-    state: link
+    src: signature.j2
+    dest: "~/.config/neomutt/signature.{{ item.name }}"
   with_items:
-    - muttrc
-    - offlineimaprc
+    - "{{ mutt_accounts }}"
 
-- name: Create offlineimap symlink
-  file:
-    src: "{{ mail_imap_dir }}"
-    dest: "{{ base_home_dir }}/.offlineimap"
-    state: link
-
-- name: Configure systemd service for syncing mail
+- name: Configure mbsync
   template:
-    src: "systemd/{{ item }}.j2"
-    dest: "{{ base_home_dir }}/.config/systemd/user/{{ item }}"
-    mode: 0644
-  with_items:
-    - syncmail.service
-    - syncmail.timer
-
-- name: Install the timer
-  systemd:
-    user: yes
-    daemon_reload: yes
-    enabled: yes
-    name: syncmail.timer
-    state: started
+    src: mbsyncrc.j2
+    dest: ~/.mbsyncrc

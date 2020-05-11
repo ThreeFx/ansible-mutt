@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+
+set hostname="{{ item.hostname }}"
+set realname="{{ item.realname }}"
+set from="{{ item.primary }}"
+set signature=$my_cfgdir/signature.{{ item.name }}
+
+set smtp_url = "{{ smtp_proto|default('smtp') }}://{{ item.user }}@{{ item.smtp_server|default(item.server) }}"
+set smtp_pass = "`{{ item.password }}`"
+
+# Reply with the address the email received
+set reverse_name = yes
+
+color status {{ item.fontcolor | default('white') }} {{ item.color }}

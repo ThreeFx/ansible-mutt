@@ -1,6 +1,0 @@
-# Mail directory
-set mbox_type=Maildir
-
-################################################################################
-# PGP
-set crypt_autosign=yes

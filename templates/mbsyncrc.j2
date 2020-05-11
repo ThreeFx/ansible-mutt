@@ -1,0 +1,23 @@
+# {{ ansible_managed }}
+
+Expunge None
+Create Both
+
+MaildirStore local
+Path ~/.mail/
+
+{% for account in mutt_accounts %}
+
+IMAPStore {{ account.name }}
+Host {{ account.imap_server | default(account.server) }}
+User {{ account.user }}
+PassCmd "{{ account.password }}"
+SSLType IMAPS
+SSLVersions TLSv1.2
+
+Channel {{ account.name }}
+Master :{{ account.name }}:
+Slave :local:{{ account.name }}
+Sync Pull
+SyncState *
+{% endfor %}

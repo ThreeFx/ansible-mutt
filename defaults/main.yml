@@ -1,38 +1,16 @@
 ---
-mail_base_dir: "{{ base_home_dir }}/mail"
-mail_accounts: []
-#mail_accounts:
-#  - name: shortname-no-spaces
-#    desc: description
-#    from: from@mail.tld
-#    hostname: whatever you like
-#    realname: Real Name
-#    user: user to login as
-#    smtp:
-#      server: smtp.mail.tld
-## specifying 465 here will cause mutt to use smtps exclusively
-#      port: 587
-#    imap:
-#      server: imap.mail.tld
-#      port: 993
-## Where to find the inbox, drafts and sent folders
-#      inbox: INBOX
-#      drafts: Drafts
-#      sent: Sent
-#    fontcolor: black
-#    color: white
-## signature is optional - if none is given 'Real Name' <from_address> is used
-#    signature: |-
-#        I Me <myaddress@mail.tld>
-#        The stuff I do
-#        The company I work for
-#        Where to find them
-mail_aliases: []
-
-mail_mutt_sent: +Sent
-mail_mutt_draft: +Drafts
-mail_mutt_trash: +Trash
-
-mail_local_inbox: INBOX
-mail_local_drafts: Drafts
-mail_local_sent: Sent
+mutt_accounts: []
+# - name: shortname-no-spaces        # required, name to identify the mailbox
+#   primary: from@mail.tld           # required, default address
+#   alts: [a@b.c, d@e.f]             # required, alternate addresses. Regexes accepted
+#   hostname: cool.tld               # required, whatever you like
+#   realname: Real Name              # required, your real name
+#   user: user to login as           # required, user to log in as for smtp
+#   server: mailserver.example.com   # required, server to login to
+#   color: white                     # required, color to use for the status line
+#   fontcolor: black                 # optional, font color to use
+#   signature: |-                    # optional, default is 'Real Name' <primary>
+#       I Me <myaddress@mail.tld>
+#       The stuff I do
+#       The company I work for
+#       Where to find them

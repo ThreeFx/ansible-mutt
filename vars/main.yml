@@ -1,5 +1,0 @@
----
-mail_config_dir: "{{ mail_base_dir }}/config"
-mail_maildir: "{{ mail_base_dir }}/maildir"
-mail_password_dir: "{{ mail_base_dir }}/keys"
-mail_imap_dir: "{{ mail_base_dir }}/offlineimap"

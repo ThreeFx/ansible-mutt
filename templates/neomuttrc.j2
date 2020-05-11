@@ -1,0 +1,100 @@
+# {{ ansible_managed }}
+
+set my_cfgdir = ~/.config/neomutt
+
+{% for account in mutt_accounts %}
+alternates {{ account.primary }}
+{% for alt in account.alts|default([]) %}
+alternates {{ alt }}
+{% endfor %}
+{% endfor %}
+
+bind pager j next-line
+bind pager k previous-line
+bind pager J next-page
+bind pager K previous-page
+bind pager g top
+bind pager G bottom
+
+bind pager,index R group-reply
+
+bind attach,index g first-entry
+bind attach,index G last-entry
+
+folder-hook . 'set read_inc=1000'
+
+{% for account in mutt_accounts %}
+folder-hook "{{ account.name }}" 'source $my_cfgdir/account.{{ account.name }}'
+reply-hook "~t {{ account.primary }}" 'source $my_cfgdir/account.{{ account.name }}
+{% for alt in account.alts|default([]) %}
+reply-hook "~t {{ alt }}" 'source $my_cfgdir/account.{{ account.name }}
+{% endfor %}
+{% endfor %}
+
+set folder = ~/.mail
+mailboxes `find ~/.mail/* -maxdepth 0 -type d -printf "+'%f' ";`
+
+# Order the visable header lines
+hdr_order User-Agent: Date: From: Subject: To: CC: BCC: Reply-To: Mail-Followup-To: Organization: X-Mailer:
+
+# Which headers to show in the minimal view?
+unignore X-Mailer
+unignore X-Spam-Flag
+unignore X-Spam-Score
+unignore X-SPAM-LEVEL
+
+# COMPOSING
+# Include the message in replies.
+set include = yes
+
+set abort_noattach = ask-yes
+set abort_noattach_regex = "([Aa]n(ge)?h[aä]ng|[Bb]eigef|[aA]ttach|[eE]nclos)"
+
+set askcc
+
+# save attachments with the body
+set fcc_attach
+
+# character set on messages that we send
+set send_charset="utf-8"
+
+# if there is no character set given on incoming messages, it is probably windows
+set assumed_charset="iso-8859-1"
+
+# just scroll one line instead of full page
+set menu_scroll = yes
+
+# When set, Mutt will prompt for confirmation when appending messages to an existing mailbox.
+set confirmappend = no
+
+# make default search pattern to search in To, Cc and Subject
+set simple_search = "~f %s | ~C %s | ~s %s"
+
+# Make headers editable
+set edit_headers = yes
+
+# string that will precede a message which has been included in a reply
+set attribution = "%n, %d:"
+
+# quote email body when forwarding
+set forward_quote = yes
+set forward_format = "Fwd: %s"
+
+set mime_forward=ask-yes
+
+# Color
+source monokai.mutt
+
+color header green color234 ^(From:|Subject:)
+color header cyan color234 ^(To:|Cc:)
+color header red color234 ^X-Spam-Flag:\ *[Yy][Ee][Ss]
+color header green color234 ^X-Spam-Flag:\ *[Nn][Oo]
+color header yellow color234 ^Date:
+
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
+# switch to default account on startup
+source $my_cfgdir/account.{{ mutt_accounts[0].name }}
+
+set wait_key = no
