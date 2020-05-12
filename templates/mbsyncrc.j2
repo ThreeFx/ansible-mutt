@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 
-Expunge None
+Expunge None # TODO: configure as Expunge Both when IMAP deletion works
 Create Both
 
 MaildirStore local
@@ -18,6 +18,6 @@ SSLVersions TLSv1.2
 Channel {{ account.name }}
 Master :{{ account.name }}:
 Slave :local:{{ account.name }}
-Sync Pull
+Sync All
 SyncState *
 {% endfor %}
