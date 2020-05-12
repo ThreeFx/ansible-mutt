@@ -1,0 +1,9 @@
+[Unit]
+Description=Sync mail every 10 minutes and on reboot
+
+[Timer]
+OnBootSec=1min
+OnCalendar=*:0/10
+
+[Install]
+WantedBy=timers.target

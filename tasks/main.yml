@@ -16,10 +16,12 @@
 - name: Create necessary dirs
   file:
     path: "{{ item }}"
+    recurse: yes
     state: directory
   with_items:
     - ~/.config/neomutt
     - ~/.mail
+    - ~/.config/systemd/user
 
 - name: Configure neomutt
   template:
@@ -46,3 +48,18 @@
   template:
     src: mbsyncrc.j2
     dest: ~/.mbsyncrc
+
+- name: Configure mbsync service
+  template:
+    src: "systemd/mbsync.{{ item }}.j2"
+    dest: "~/.config/systemd/user/mbsync.{{ item }}"
+  with_items:
+    - service
+    - timer
+
+- name: Enable mbsync timer
+  systemd:
+    user: yes
+    name: mbsync.timer
+    state: started
+    enabled: yes

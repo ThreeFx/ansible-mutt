@@ -1,0 +1,9 @@
+[Unit]
+Description=Synchronize mail dirs between IMAP accounts and this computer
+
+[Service]
+ExecStart=/usr/bin/mbsync -V -a
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=mbsync
+Type=oneshot
